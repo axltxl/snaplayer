@@ -1,0 +1,2 @@
+softlayer==4.1.1
+clint==0.5.1
