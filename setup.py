@@ -10,7 +10,8 @@ import pip
 from pip.req import parse_requirements
 from setuptools import setup, find_packages
 import os
-from snaplayer import __version
+from snaplayer import __version__ as version
+from snaplayer import PKG_URL, PKG_NAME
 
 
 # parse_requirements() returns generator of pip.req.InstallRequirement objects
@@ -22,8 +23,7 @@ reqs = [str(ir.req) for ir in install_reqs]
 
 setup(
     name=PKG_NAME,
-    version=__version,
-    cmdclass=versioneer.get_cmdclass(),
+    version=version,
     packages=find_packages(),
     author="Alejandro Ricoveri",
     author_email="alejandroricoveri@gmail.com",
@@ -31,7 +31,7 @@ setup(
     long_description=open('README.rst').read(),
     url=PKG_URL,
     license='MIT',
-    download_url="{url}/tarball/{version}".format(url=PKG_URL, version=__version),
+    download_url="{url}/tarball/{version}".format(url=PKG_URL, version=version),
     keywords=['softlayer', 'backup'],
     classifiers=[
         'Development Status :: 4 - Beta',
