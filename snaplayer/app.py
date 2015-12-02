@@ -15,27 +15,47 @@ import os
 import sys
 import traceback
 import signal
+
+from docopt import docopt
+from docopt import DocoptExit
+
 from snaplayer import __version__ as version
 from snaplayer import (
     PKG_NAME, PKG_URL
 )
 from snaplayer import log
+from snaplayer import softlayer
 
 
-def init_parsecmdline(argv=[]):
+def __parse_args(argv):
+    """snaplayer
+
+        Usage:
+            snaplayer [-l <FILE> | -d | -q] <config>
+            snaplayer --help | -h
+            snaplayer --version
+
+        Options:
+            -l FILE --log-file FILE  Log file
+            -d --dry-run  Dry run mode (don't do anything)
+            -q --quiet  Quiet output
+    """
+    return docopt(__parse_args.__doc__, argv=argv, version=version)
+
+
+def init_parsecmdline(argv):
     """
     Parse arguments from the command line
 
     :param argv: list of arguments
     """
-    # use docopt for this one
-    pass
+    return __parse_args(argv)
 
 
 def _splash():
     """Print the splash"""
-    splash_title = "{pkg} [{version}] - {url}".format(pkg=PKG_NAME,
-                                                      version=version, url=PKG_URL)
+    splash_title = "{pkg} [{version}] - {url}".format(
+        pkg=PKG_NAME, version=version, url=PKG_URL)
     log.to_stdout(splash_title, colorf=log.yellow, bold=True)
     log.to_stdout('-' * len(splash_title), colorf=log.yellow, bold=True)
 
@@ -48,11 +68,22 @@ def init(argv):
     """
 
     # Parse the command line
-    init_parsecmdline(argv[1:])
+    args = init_parsecmdline(argv[1:])
 
     # This baby will handle UNIX signals
     signal.signal(signal.SIGINT,  _handle_signal)
     signal.signal(signal.SIGTERM, _handle_signal)
+
+    # initialize log
+    if  not args['--log-file']:
+        args['--log-file'] = log.LOG_FILE_DEFAULT
+    log.init(log_file=args['--log-file'])
+
+    # show splash
+    _splash()
+
+    #
+    return args
 
 
 def _handle_signal(signum, frame):
@@ -79,13 +110,15 @@ def _handle_except(e):
     """
     exc_type, exc_obj, exc_tb = sys.exc_info()
     fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-    log.msg_err("Unhandled {e} at {file}:{line}: '{msg}'"
-                .format(e=exc_type.__name__, file=fname,
-                        line=exc_tb.tb_lineno,  msg=e))
+    log.msg_err("Unhandled {e} at {file}:{line}: '{msg}'" .format(
+        e=exc_type.__name__, file=fname,
+        line=exc_tb.tb_lineno,  msg=e))
     log.msg_err(traceback.format_exc())
     log.msg_err("An error has occurred!. "
                 "For more details, review the logs.")
     return 1
+
+
 
 
 def main(argv=None):
@@ -105,8 +138,15 @@ def main(argv=None):
 
     try:
         # Bootstrap
-        init(argv)
+        options = init(argv)
 
+        # do the thing
+        softlayer.capture(options['<config>'], dry_run=options['--dry-run'])
+
+    except DocoptExit as de:
+        # Deal with wrong arguments
+        print(de)
+        exit_code = 1
     except Exception as e:
         # ... and if everything else fails
         _handle_except(e)

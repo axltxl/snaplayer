@@ -1,2 +1,4 @@
-softlayer==4.1.1
-clint==0.5.1
+softlayer == 4.1.1
+clint == 0.5.1
+docopt == 0.6.2
+pyyaml == 3.11
