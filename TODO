@@ -1,0 +1,6 @@
+* do the actual captures
+* 'snaplayer' as default tag as a safety device?
+* config.Config schema marshalling
+* log level implementation
+* linting
+* Create dead-simple README
