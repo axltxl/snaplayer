@@ -85,13 +85,13 @@ def to_stdout(msg, *, colorf=green, bold=False):
         print(colorf(msg, bold=bold))
 
 
-def msg(message):
+def msg(message, *, bold=False):
     """
     Log a regular message
 
     :param message: the message to be logged
     """
-    to_stdout(" --- {message}".format(message=message))
+    to_stdout(" --- {message}".format(message=message), bold=bold)
     if _logger:
         _logger.info(message)
 
