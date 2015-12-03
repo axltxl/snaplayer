@@ -36,6 +36,7 @@ def __parse_args(argv):
             snaplayer --version
 
         Options:
+            --list  List instances only
             -l FILE --log-file FILE  Log file
             -d --dry-run  Dry run mode (don't do anything)
             -q --quiet  Quiet output
