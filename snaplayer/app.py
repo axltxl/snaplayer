@@ -31,7 +31,7 @@ def __parse_args(argv):
     """snaplayer
 
         Usage:
-            snaplayer [-l <FILE> | -d | -q] <config>
+            snaplayer [-l <FILE> | -d | -q] [--list] <config>
             snaplayer --help | -h
             snaplayer --version
 
@@ -82,7 +82,8 @@ def init(argv):
     # show splash
     _splash()
 
-    #
+    # after all has been done, give options that had been
+    # gotten from the command line
     return args
 
 
@@ -98,7 +99,6 @@ def shutdown():
     """
     Cleanup
     """
-    # Perform cleanup
     log.msg("Exiting ...")
 
 
@@ -140,8 +140,15 @@ def main(argv=None):
         # Bootstrap
         options = init(argv)
 
-        # do the thing
-        softlayer.capture(options['<config>'], dry_run=options['--dry-run'])
+        # connect to softlayer service
+        softlayer.connect(dry_run=options['--dry-run'])
+
+        # ... and proceed to create images from the config file
+        softlayer.create_images(
+                options['<config>'],
+                list_instances=options['--list'],
+                dry_run=options['--dry-run']
+                )
 
     except DocoptExit as de:
         # Deal with wrong arguments
