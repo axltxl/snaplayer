@@ -138,15 +138,11 @@ def main(argv=None):
         # Bootstrap
         options = init(argv)
 
-        # connect to softlayer service
-        softlayer.connect(dry_run=options['--dry-run'])
-
         # ... and proceed to create images from the config file
-        softlayer.create_images(
-                options['<config>'],
-                list_instances=options['--list'],
-                dry_run=options['--dry-run']
-                )
+        if options['--list']:
+            softlayer.list_instances(options['<config>'], dry_run=options['--dry-run'])
+        else:
+            softlayer.capture_instances(options['<config>'], dry_run=options['--dry-run'])
 
     except DocoptExit as de:
         # Deal with wrong arguments
