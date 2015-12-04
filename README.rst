@@ -39,7 +39,7 @@ Quick start
     snaplayer --list my_config.yml
 
     # Capture your instances into images!
-    snaplayer my_config.yml
+    snaplayer --capture my_config.yml
 
 
 Requirements
@@ -127,9 +127,11 @@ Options
 =======
 ::
 
-    snaplayer [options] <config_file>
+    snaplayer [options] (--list | --capture) <config_file>
 
 
+-  ``--capture`` Capture instances and create images from them
+-  ``--list`` List instances only
 -  ``--version`` show version number and exit
 -  ``--list`` only list matching instances and exit
 -  ``-h | --help`` show a help message and exit
