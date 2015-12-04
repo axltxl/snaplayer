@@ -20,9 +20,8 @@ from docopt import docopt
 from docopt import DocoptExit
 
 from snaplayer import __version__ as version
-from snaplayer import (
-    PKG_NAME, PKG_URL
-)
+from snaplayer import PKG_URL as pkg_url
+from snaplayer import __name__ as pkg_name
 from snaplayer import log
 from snaplayer import softlayer
 
@@ -56,7 +55,7 @@ def init_parsecmdline(argv):
 def _splash():
     """Print the splash"""
     splash_title = "{pkg} [{version}] - {url}".format(
-        pkg=PKG_NAME, version=version, url=PKG_URL)
+        pkg=pkg_name, version=version, url=pkg_url)
     log.to_stdout(splash_title, colorf=log.yellow, bold=True)
     log.to_stdout('-' * len(splash_title), colorf=log.yellow, bold=True)
 
