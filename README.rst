@@ -47,7 +47,7 @@ Requirements
 -  `clint <https://github.com/kennethreitz/clint>`_
 -  `docopt <http://docopt.org>`_
 -  `pyyaml <http://pyyaml.org>`_
--  `schema <https://github.com/keleshev/schema>`_ >= 0.4.1
+-  `schema <https://github.com/keleshev/schema>`_
 
 
 Contributing
@@ -151,6 +151,25 @@ Dry run
 ::
 
     $ snaplayer -d
+
+
+Configuration file
+==================
+
+snaplayer lists and tells Softlayer to capture images based
+on criteria information extracted from a 'criteria file' which is
+no more than a dead-simple YAML file with a handful key-value pairs,
+like so:
+
+::
+
+    ---
+    # Example criteria YAML file
+    domain: mydomain.com
+    tags: [mydomain, production]
+    hourly: false
+    monthly: true
+    cpus: 2
 
 
 Options
