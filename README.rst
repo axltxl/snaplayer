@@ -89,7 +89,12 @@ Basic Usage
 Normal execution
 ::
 
-    $ snaplayer /path/to/my/custom/snaplayer.yaml
+    $ snaplayer --capture /path/to/my/custom/snaplayer.yaml
+
+List instances
+::
+
+    $ snaplayer --list /path/to/my/custom/snaplayer.yaml
 
 Quiet output
 ::
