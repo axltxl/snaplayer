@@ -171,7 +171,7 @@ like so:
     monthly: true
     cpus: 2
 
-Configuration options are correspondent to those of `SoftLayer.vs.list_instances.<http://softlayer-python.readthedocs.org/en/latest/api/managers/vs.html#SoftLayer.managers.vs.VSManager.list_instances>`_
+Configuration options are correspondent to those of `SoftLayer.vs.list_instances <http://softlayer-python.readthedocs.org/en/latest/api/managers/vs.html#SoftLayer.managers.vs.VSManager.list_instances>`_
 
 
 Options
