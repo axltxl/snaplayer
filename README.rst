@@ -1,7 +1,34 @@
 snaplayer
 =========
 
-[WIP] Detailed description coming soon (along with its first release)
+**snaplayer** is a minimalist python command line tool for easily list
+and capture your Softlayer virtual servers into corresponding images with no
+effort whatsoever.
+
+Quick start
+===========
+
+::
+
+    # First of all, you need to install
+    pip3 install snaplayer
+
+    # Create a criteria configuration file
+    cat << EOF > my_config.yml
+    hourly: false
+    tags:
+        - cool
+        - cooler
+    domain: cool.io
+    EOF
+
+
+    # It's best to list your instances first
+    snaplayer --list my_config.yml
+
+    # Capture your instances into images!
+    snaplayer my_config.yml
+
 
 -  `Requirements <#requirements>`_
 -  `Contributing <#contributing>`_
@@ -16,9 +43,11 @@ Requirements
 ============
 
 -  `python <http://python.org>`_ >= 3.3
--  `envoy <https://pypi.python.org/pypi/envoy>`_ >= 0.0.3
--  `pyyaml <http://pyyaml.org>`_ >= 3.11
--  `clint <https://github.com/kennethreitz/clint>`_ >= 0.4.1
+-  `softlayer <https://github.com/softlayer/softlayer-python>`_
+-  `clint <https://github.com/kennethreitz/clint>`_
+-  `docopt <http://docopt.org>`_
+-  `pyyaml <http://pyyaml.org>`_
+-  `schema <https://github.com/keleshev/schema>`_ >= 0.4.1
 
 
 Contributing
@@ -111,17 +140,17 @@ Basic Usage
 Normal execution
 ::
 
-  $ snaplayer /path/to/my/custom/snaplayer.yaml
+    $ snaplayer /path/to/my/custom/snaplayer.yaml
 
 Quiet output
 ::
 
-  $ snaplayer -q
+    $ snaplayer -q
 
 Dry run
 ::
 
-  $ snaplayer -d
+    $ snaplayer -d
 
 
 Options
@@ -132,6 +161,7 @@ Options
 
 
 -  ``--version`` show version number and exit
+-  ``--list`` only list matching instances and exit
 -  ``-h | --help`` show a help message and exit
 -  ``-d | --dry-run`` don't actually do anything
 -  ``-q | --quiet`` quiet output
