@@ -75,9 +75,10 @@ def init(argv):
     signal.signal(signal.SIGTERM, _handle_signal)
 
     # initialize log
-    if  not args['--log-file']:
+    if not args['--log-file']:
         args['--log-file'] = log.LOG_FILE_DEFAULT
-    log.init(log_file=args['--log-file'], threshold_lvl=int(args['--log-level']))
+    log.init(log_file=args['--log-file'],
+             threshold_lvl=int(args['--log-level']))
 
     # show splash
     _splash()
@@ -140,13 +141,15 @@ def main(argv=None):
 
         # ... and proceed to create images from the config file
         if options['--list']:
-            softlayer.list_instances(options['<config>'], dry_run=options['--dry-run'])
+            softlayer.list_instances(options['<config>'],
+                                     dry_run=options['--dry-run'])
         else:
-            softlayer.capture_instances(options['<config>'], dry_run=options['--dry-run'])
+            softlayer.capture_instances(options['<config>'],
+                                        dry_run=options['--dry-run'])
 
-    except DocoptExit as de:
+    except DocoptExit as dexcept:
         # Deal with wrong arguments
-        print(de)
+        print(dexcept)
         exit_code = 1
     except Exception as e:
         # ... and if everything else fails
@@ -155,7 +158,7 @@ def main(argv=None):
     finally:
         # All cleanup actions are taken from here
         shutdown()
-        return exit_code
+    return exit_code
 
 
 # Now the sys.exit() calls are annoying: when main() calls
