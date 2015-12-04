@@ -13,6 +13,7 @@ Configuration file implementation
 import yaml
 from schema import Schema, Optional
 
+
 class Config():
     """Configuration file
 
@@ -47,7 +48,8 @@ class Config():
         self._schema = Schema({
             Optional('hourly'): bool,
             Optional('monthly'): bool,
-            Optional('tags'): lambda tags: type(tags) is list and all([type(t) is str for t in tags]),
+            Optional('tags'): lambda tags: isinstance(tags, list)
+                              and all([isinstance(t, str) for t in tags]),
             Optional('cpus'): int,
             Optional('memory'): int,
             Optional('hostname'): str,
@@ -70,4 +72,5 @@ class Config():
 
     @property
     def options(self):
+        """Get the whole options set"""
         return self._options
