@@ -5,6 +5,18 @@ snaplayer
 and capture your Softlayer virtual servers into corresponding images with no
 effort whatsoever.
 
+
+-  `Quick start <#quick-start>`_
+-  `Requirements <#requirements>`_
+-  `Installation <#installation>`_
+-  `Basic usage <#basic-usage>`_
+-  `Options <#options>`_
+-  `Configuration file <#configuration-file>`_
+-  `Contributing <#contributing>`_
+-  `Donating <#donating>`_
+-  `Copyright and licensing <#copyright-and-licensing>`_
+
+
 Quick start
 ===========
 
@@ -30,15 +42,6 @@ Quick start
     snaplayer my_config.yml
 
 
--  `Requirements <#requirements>`_
--  `Contributing <#contributing>`_
--  `Installation <#installation>`_
--  `Basic usage <#basic-usage>`_
--  `Options <#options>`_
--  `Configuration file <#configuration-file>`_
--  `Donating <#donating>`_
--  `Copyright and licensing <#copyright-and-licensing>`_
-
 Requirements
 ============
 
@@ -49,60 +52,6 @@ Requirements
 -  `pyyaml <http://pyyaml.org>`_
 -  `schema <https://github.com/keleshev/schema>`_
 
-
-Contributing
-============
-
-There are many ways in which you can contribute to snaplayer.
-Code patches are just one thing amongst others that you can submit to help the project.
-We also welcome feedback, bug reports, feature requests, documentation improvements,
-advertisement and testing.
-
-Feedback contributions
-----------------------
-
-This is by far the easiest way to contribute something.
-If you’re using snaplayer for your own benefit, don’t hesitate sharing.
-Feel free to `submit issues and enhancement requests. <https://github.com/axltxl/snaplayer/issues>`_
-
-Code contributions
-------------------
-
-Code contributions (patches, new features) are the most obvious way to help with the project’s development.
-Since this is so common we ask you to follow our workflow to most efficiently work with us.
-For code contributions, we follow the "fork-and-pull" Git workflow.
-
-
-1. Fork, then clone your repo on GitHub
-::
-
-  git clone git@github.com:your-username/snaplayer.git
-  git add origin upstream https://github.com/axltxl/snaplayer.git
-
-If you already forked the repo, then be sure to merge
-the most recent changes from "upstream" before making a pull request.
-::
-
-  git pull upstream
-
-2. Create a new feature branch in your local repo
-::
-
-  git checkout -b my_feature_branch
-
-3. Make your changes, then make sure the tests passes
-::
-
-  pyvenv snaplayer-pyve && source snaplayer-pyve/bin/activate
-  python3 setup.py test
-
-4. Commit your changes once done
-::
-
-  git commit -a -m "My commit message"
-  git push origin my_feature_branch
-
-5. Submit a `pull request <https://github.com/axltxl/snaplayer/compare/>`_ with your feature branch containing your changes.
 
 Installation
 ============
@@ -188,6 +137,61 @@ Options
 -  ``-q | --quiet`` quiet output
 -  ``--ll | --log-level=[num]`` set logging output level
 -  ``-l LOG_FILE | --log-file LOG_FILE set log file``
+
+
+Contributing
+============
+
+There are many ways in which you can contribute to snaplayer.
+Code patches are just one thing amongst others that you can submit to help the project.
+We also welcome feedback, bug reports, feature requests, documentation improvements,
+advertisement and testing.
+
+Feedback contributions
+----------------------
+
+This is by far the easiest way to contribute something.
+If you’re using snaplayer for your own benefit, don’t hesitate sharing.
+Feel free to `submit issues and enhancement requests. <https://github.com/axltxl/snaplayer/issues>`_
+
+Code contributions
+------------------
+
+Code contributions (patches, new features) are the most obvious way to help with the project’s development.
+Since this is so common we ask you to follow our workflow to most efficiently work with us.
+For code contributions, we follow the "fork-and-pull" Git workflow.
+
+
+1. Fork, then clone your repo on GitHub
+::
+
+  git clone git@github.com:your-username/snaplayer.git
+  git add origin upstream https://github.com/axltxl/snaplayer.git
+
+If you already forked the repo, then be sure to merge
+the most recent changes from "upstream" before making a pull request.
+::
+
+  git pull upstream
+
+2. Create a new feature branch in your local repo
+::
+
+  git checkout -b my_feature_branch
+
+3. Make your changes, then make sure the tests passes
+::
+
+  pyvenv snaplayer-pyve && source snaplayer-pyve/bin/activate
+  python3 setup.py test
+
+4. Commit your changes once done
+::
+
+  git commit -a -m "My commit message"
+  git push origin my_feature_branch
+
+5. Submit a `pull request <https://github.com/axltxl/snaplayer/compare/>`_ with your feature branch containing your changes.
 
 
 Copyright and Licensing
