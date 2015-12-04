@@ -12,7 +12,8 @@ from setuptools import setup, find_packages
 import os
 from snaplayer import __version__ as version
 from snaplayer import __author__ as author
-from snaplayer import PKG_URL
+from snaplayer import PKG_URL as pkg_url
+from snaplayer import __name__ as pkg_name
 
 
 # parse_requirements() returns generator of pip.req.InstallRequirement objects
@@ -23,19 +24,19 @@ install_reqs = parse_requirements('requirements.txt', session=pip.download.PipSe
 reqs = [str(ir.req) for ir in install_reqs]
 
 setup(
-    name=PKG_NAME,
+    name=pkg_name,
     version=version,
     packages=find_packages(),
     author=author,
     author_email="alejandroricoveri@gmail.com",
     description="Make images out of your Softlayer virtual servers, painlessly",
     long_description=open('README.rst').read(),
-    url=PKG_URL,
+    url=pkg_url,
     license='MIT',
-    download_url="{url}/tarball/{version}".format(url=PKG_URL, version=version),
+    download_url="{url}/tarball/{version}".format(url=pkg_url, version=version),
     keywords=['softlayer', 'backup'],
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 3 - Alpha',
         'Environment :: Console	',
         'Topic :: Database',
         'Natural Language :: English',
