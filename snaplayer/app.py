@@ -30,16 +30,15 @@ from snaplayer import softlayer
 def __parse_args(argv):
     """snaplayer
 
-        Usage:
-            snaplayer [-l <FILE> | -d | -q] [--list] <config>
-            snaplayer --help | -h
-            snaplayer --version
+        Usage: snaplayer [options] <config>
 
-        Options:
-            --list  List instances only
-            -l FILE --log-file FILE  Log file
-            -d --dry-run  Dry run mode (don't do anything)
-            -q --quiet  Quiet output
+        --ll=LVL, --log-level=LVL  Verbosity level on output [default: 1]
+        -l=FILE, --log-file=FILE  Log file [default: snaplayer.log]
+        -d, --dry-run  Dry run mode (don't do anything)
+        -q, --quiet  Quiet output
+        -h, --help  Print this message and exit
+        -v, --version  Print version and exit
+        --list  List instances only
     """
     return docopt(__parse_args.__doc__, argv=argv, version=version)
 
@@ -72,13 +71,13 @@ def init(argv):
     args = init_parsecmdline(argv[1:])
 
     # This baby will handle UNIX signals
-    signal.signal(signal.SIGINT,  _handle_signal)
+    signal.signal(signal.SIGINT, _handle_signal)
     signal.signal(signal.SIGTERM, _handle_signal)
 
     # initialize log
     if  not args['--log-file']:
         args['--log-file'] = log.LOG_FILE_DEFAULT
-    log.init(log_file=args['--log-file'])
+    log.init(log_file=args['--log-file'], threshold_lvl=int(args['--log-level']))
 
     # show splash
     _splash()
@@ -113,13 +112,11 @@ def _handle_except(e):
     fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
     log.msg_err("Unhandled {e} at {file}:{line}: '{msg}'" .format(
         e=exc_type.__name__, file=fname,
-        line=exc_tb.tb_lineno,  msg=e))
+        line=exc_tb.tb_lineno, msg=e))
     log.msg_err(traceback.format_exc())
     log.msg_err("An error has occurred!. "
                 "For more details, review the logs.")
     return 1
-
-
 
 
 def main(argv=None):

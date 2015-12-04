@@ -14,6 +14,7 @@ softlayer dealer
 import SoftLayer
 import math
 import uuid
+from datetime import datetime
 from . import log
 from .config import Config
 
@@ -33,6 +34,17 @@ def connect(dry_run=False):
     log.msg("Connection to SoftLayer succesful!", bold=True)
 
 
+def _generate_image_name():
+    # Time in ISO8601 format
+    now = datetime.now().isoformat()
+
+    # Image UUID
+    image_uuid = uuid.uuid4().hex
+
+    # give the thing
+    return "snaplayer-{}-{}".format(now, image_uuid)
+
+
 def _capture_instance(vsi, sl_vs_mgr):
     """Capture all instances and create images from each one of them
 
@@ -40,15 +52,21 @@ def _capture_instance(vsi, sl_vs_mgr):
     """
     instance_id = vsi['id']
     log.msg_warn("Capturing instance #{}".format(instance_id))
-    image_name = "snaplayer-{}".format(uuid.uuid4().hex)
+    for k, v in vsi.items():
+        log.msg_debug("    {:32} => {}".format(k, v))
 
-    log.msg("image name = {}".format(image_name))
+    # generate image name for this instance
+    image_name = _generate_image_name()
+
+    log.msg("image name => '{}'".format(image_name), bold=True)
     capture_info = sl_vs_mgr.capture(instance_id, image_name)
-    log.msg(capture_info, bold=True)
+    log.msg_debug('capture info: {}'.format(image_name))
+    log.msg_debug(capture_info)
 
+    # based on the averageTimeToComplete value,
     time_wait = math.floor(float(capture_info['transactionGroup']['averageTimeToComplete'])) * 60
-    log.msg('Wait for the thing to be ready ...')
-    log.msg('I will take no longer than {} seconds'.format(time_wait))
+    log.msg('Waiting for the transaction to finish ...')
+    log.msg_warn('Maximum amount of time to wait: {} second(s)'.format(time_wait))
     sl_vs_mgr.wait_for_transaction(instance_id, time_wait)
 
 
@@ -65,6 +83,7 @@ def create_images(config_file, *, list_instances=True, dry_run=False):
     """Generate images from instances"""
 
     # read config file
+    log.msg("Reading configuration file: {}".format(config_file))
     config = Config(config_file=config_file)
 
     log.msg("Looking for instances with following properties:")
@@ -76,8 +95,16 @@ def create_images(config_file, *, list_instances=True, dry_run=False):
     if not dry_run:
         sl_vs_mgr = SoftLayer.VSManager(_sl_client)
         instances = sl_vs_mgr.list_instances(**config.options)
+
+        # check for number of instances
         if not len(instances):
-            raise RuntimeError("No instance found.")
+            raise RuntimeError("No instance(s) matched with criteria " \
+                    "specified on configuration file")
+        else:
+            log.msg("{} matching instance(s) found!".format(len(instances)), bold=True)
+
+        # Proceed with either capture or listing
+        # of matching instances
         for vsi in instances:
             if not list_instances:
                 # capture each instance
@@ -85,5 +112,4 @@ def create_images(config_file, *, list_instances=True, dry_run=False):
             else:
                 # list instances
                 _list_instances(vsi)
-
-            log.msg("Done!")
+        log.msg("Done!")
