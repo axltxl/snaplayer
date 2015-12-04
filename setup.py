@@ -11,7 +11,8 @@ from pip.req import parse_requirements
 from setuptools import setup, find_packages
 import os
 from snaplayer import __version__ as version
-from snaplayer import PKG_URL, PKG_NAME
+from snaplayer import __author__ as author
+from snaplayer import PKG_URL
 
 
 # parse_requirements() returns generator of pip.req.InstallRequirement objects
@@ -25,9 +26,9 @@ setup(
     name=PKG_NAME,
     version=version,
     packages=find_packages(),
-    author="Alejandro Ricoveri",
+    author=author,
     author_email="alejandroricoveri@gmail.com",
-    description="Softlayer instances snapshots",
+    description="Make images out of your Softlayer virtual servers, painlessly",
     long_description=open('README.rst').read(),
     url=PKG_URL,
     license='MIT',
