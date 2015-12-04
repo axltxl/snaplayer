@@ -30,7 +30,7 @@ from snaplayer import softlayer
 def __parse_args(argv):
     """snaplayer
 
-        Usage: snaplayer [options] <config>
+        Usage: snaplayer [options] (--list | --capture) <config>
 
         --ll=LVL, --log-level=LVL  Verbosity level on output [default: 1]
         -l=FILE, --log-file=FILE  Log file [default: snaplayer.log]
@@ -39,6 +39,7 @@ def __parse_args(argv):
         -h, --help  Print this message and exit
         -v, --version  Print version and exit
         --list  List instances only
+        --capture  Capture instances and create images
     """
     return docopt(__parse_args.__doc__, argv=argv, version=version)
 
