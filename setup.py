@@ -48,7 +48,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'snaplayer = snaplayer.app:main',
+            'snaplayer = snaplayer.__main__:main',
         ],
     },
     install_requires = reqs,
