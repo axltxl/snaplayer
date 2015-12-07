@@ -1,5 +1,10 @@
 snaplayer
 =========
+.. image:: https://badge.fury.io/py/snaplayer.svg
+   :target: http://badge.fury.io/py/snaplayer
+
+Make images out of your Softlayer virtual servers, painlessly
+-------------------------------------------------------------
 
 **snaplayer** is a minimalist python command line tool for easily list
 and capture your Softlayer virtual servers into corresponding images with no
