@@ -38,7 +38,7 @@ setup(
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Console	',
-        'Topic :: Database',
+        'Topic :: System :: Archiving :: Backup',
         'Natural Language :: English',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
